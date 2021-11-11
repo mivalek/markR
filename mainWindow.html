@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>HTML Marker</title>
+    <link rel="stylesheet" href="assets/css/fonts.css">
+    <link rel="stylesheet" href="assets/css/electron-tabs.css">
+    <link rel="stylesheet" href="node_modules/dragula/dist/dragula.css">
+    <style>
+        /* As the tab needs to be in the border of the view, remove margin of the body tag */
+        body {
+            margin: 0;
+            font-family: 'Zen Kaku';
+            font-weight: 300;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="titlebar">
+        <div id="drag-region"></div>
+        <div id="menu">
+            <div class="menu-container">
+                <div class="menu-label">File</div>
+                <div class="menu-item">
+                    <div class="submenu-item" id="open:request" hk="o">Open File...</div>
+                    <div class="submenu-item" id="save:request" hk="s">Save File</div>
+                    <div class="submenu-item" id="rubric:open" hk="i">Import Rubric...</div>
+                    <div class="submenu-item" id="comments:open" hk="shift+c">Import Comments...</div>
+                    <div class="divisor"></div>
+                    <div class="submenu-item" id="app:quit">Exit</div>
+                </div>
+            </div>
+
+            <div class="menu-container">
+                <div class="menu-label">Edit</div>
+                <div class="menu-item">
+                    <!-- <div class="submenu-item" id="undo" hk="z">Undo</div>
+                    <div class="submenu-item" id="redo" hk="y">Redo</div>
+                    <div class="divisor"></div> -->
+                    <div class="submenu-item" id="cut" hk="x">Cut</div>
+                    <div class="submenu-item" id="copy" hk="c">Copy</div>
+                    <div class="submenu-item" id="paste" hk="v">Paste</div>
+                </div>
+            </div>
+        </div>
+        <div id="title">markR for HTML</div>
+        <div id="windows-ctrls">
+            <div id="win-min" class="win-icon" onclick="minimise()">
+                <div></div>
+            </div>
+            <div id="win-resize" class="win-icon resize">
+                <div id="win-max" onclick="maximise()">
+                    <div></div>
+                </div>
+                <div id="win-unmax" onclick="unmaximise()">
+                    <div id="first"></div>
+                    <div id="second"></div>
+                </div>
+            </div>
+            <div id="win-close" class="win-icon" onclick="quit()">
+                <div id="first"></div>
+                <div id="second"></div>
+            </div>
+        </div>
+        <div id="mac-ctrls">
+            <div id="mac-min" class="mac-icon" onclick="minimise()">
+                <div></div>
+            </div>
+            <div id="mac-resize" class="mac-icon resize">
+                <div id="mac-max" onclick="maximise()">
+                    <div></div>
+                </div>
+                <div id="mac-unmax" onclick="unmaximise()">
+                    <div></div>
+                </div>
+            </div>
+            <div id="mac-close" class="mac-icon" onclick="quit()">
+                <div></div>
+            </div>
+        </div>
+    </div>
+    <div id="dialog-container" onclick="hideDialog()">
+        <div id="save-current" class="dialog">
+            <div class="message">I'll save your changes to the file before we close it if that's OK?</div>
+            <div class="tab-placeholder-start" tabindex="0"></div>
+            <button class="dialog-button yes"
+                onclick="saveAndClose(this.parentNode.getAttribute('tabId'))">Sure!</button>
+            <button class="dialog-button no" onclick="closeTab(this.parentNode.getAttribute('tabId'))">Nope</button>
+            <button class="dialog-button cancel"
+                onclick="hideDialog(this.parentNode.getAttribute('tabId'))">Cancel</button>
+            <div class="tab-placeholder-end" tabindex="0"></div>
+        </div>
+        <div id="save-all" class="dialog">
+            <div class="message">I'll save changes to all files before closing the app, yeah?</div>
+            <div class="tab-placeholder-start" tabindex="0"></div>
+            <button class="dialog-button yes" onclick="saveAllTabs()">Nah yea!</button>
+            <button class="dialog-button no" onclick="ipcRenderer.send('app:quit')">Yea nah...</button>
+            <button class="dialog-button cancel" onclick="hideDialog()">Cancel</button>
+            <div class="tab-placeholder-end" tabindex="0"></div>
+        </div>
+    </div>
+    <!-- 2. Include the basic markup of the tabs view -->
+    <div class="etabs-tabgroup">
+        <div class="etabs-tabs"></div>
+        <div class="etabs-buttons"></div>
+    </div>
+    <div class="etabs-views"></div>
+
+    <!--
+            3. Include initialization code, you can include another js file
+            Or write directly the JS code here.
+        -->
+    <script src="renderer.js"></script>
+</body>
+
+</html>

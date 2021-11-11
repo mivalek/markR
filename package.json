@@ -1,0 +1,26 @@
+{
+  "name": "marker",
+  "version": "1.0.0",
+  "description": "Coursework marker",
+  "main": "main.js",
+  "dependencies": {
+    "custom-electron-titlebar": "^3.2.7",
+    "dragula": "^3.7.3",
+    "electron": "^15.3.0",
+    "electron-fetch": "^1.7.4",
+    "electron-store": "^8.0.1",
+    "electron-tabs": "^0.15.0",
+    "google-spreadsheet": "^3.1.15",
+    "jquery": "^3.6.0",
+    "jsdom": "^18.0.0",
+    "marked": "^3.0.8",
+    "node-fetch": "^3.0.0",
+    "node-pandoc": "^0.3.0",
+    "turndown": "^7.1.1"
+  },
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Milan Valasek",
+  "license": "MIT"
+}
