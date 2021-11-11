@@ -1,0 +1,15 @@
+
+@font-face {
+    font-family: 'Zen Kaku';
+    src: url('../fonts/ZenKakuGothicNew-Regular.ttf');
+} 
+@font-face {
+    font-family: 'Zen Kaku';
+    src: url('../fonts/ZenKakuGothicNew-Bold.ttf');
+    font-weight: bold;
+}
+@font-face {
+    font-family: 'Zen Kaku';
+    src: url('../fonts/ZenKakuGothicNew-Light.ttf');
+    font-weight: 300;
+}

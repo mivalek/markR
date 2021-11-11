@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>HTML Marker</title>
+    <link rel="stylesheet" href="assets/css/fonts.css">
+    <link rel="stylesheet" href="assets/css/default_tab.css">
+
+</head>
+
+<body>
+
+    <div id="tile-container">
+        <button id="open" onclick="requestOpenFile()">Open file<span class="hotkey" id="o"></span></button>
+        <button id="import-rubric">Import rubric<span class="hotkey" id="i"></span><a href="https://google.com"
+                target="_blank">View rubric
+                template</a></button>
+        <button id="import-comments">Import quick comments<span class="hotkey" id="shift+c"></span></button>
+    </div>
+
+    <script>
+        let isMac;
+        window.electron.receive("isMac:send", (data) => {
+            isMac = data === 'true';
+            console.log(isMac + "received");
+            document.querySelectorAll(".hotkey").forEach((el) => el.innerHTML = makeHotkey(el.id));
+        });
+
+        function makeHotkey(k) {
+            controlKey = isMac ? "<kbd><span class='cmd-key'>⌘</span> Cmd</kbd>" : "<kbd>Ctrl</kbd>";
+            const keys = k.toUpperCase()
+                .replace("SHIFT", ":")
+                .replace(/([^+])/g, "<kbd>$&</kbd>")
+                .replace(":", "⇧ Shift");
+            return controlKey + "+" + keys;
+        };
+
+        function requestOpenFile() {
+            window.electron.sendToMain("open:request", "")
+        };
+        document.querySelectorAll("a[target]").forEach(a => a.addEventListener("click", e => {
+            e.preventDefault();
+            requestExternalLink(e.target.getAttribute("href"));
+        }))
+
+        function requestExternalLink(url) {
+            window.electron.sendToMain("external:request", url)
+            console.log(url + " requested");
+        };
+
+        document.addEventListener("click", (e) => {
+            window.electron.sendToHost("menu:close", "");
+        });
+    </script>
+</body>
+
+</html>
